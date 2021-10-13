@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dba_OkulOtomasyonuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AYAR_TBL">
+          <Key>
+            <PropertyRef Name="AYARLARID" />
+          </Key>
+          <Property Name="AYARLARID" Type="int" Nullable="false" />
+          <Property Name="OGRTSIFRE" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="BRANS_TBL">
+          <Key>
+            <PropertyRef Name="BRANSID" />
+          </Key>
+          <Property Name="BRANSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BRANSAD" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="IL_TBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sehir" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ILCE_TBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ilce" Type="nvarchar" MaxLength="255" />
+          <Property Name="sehir" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OGR_TBL">
+          <Key>
+            <PropertyRef Name="OGRID" />
+          </Key>
+          <Property Name="OGRID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OGRAD" Type="varchar" MaxLength="30" />
+          <Property Name="OGRSOYAD" Type="varchar" MaxLength="30" />
+          <Property Name="OGRNO" Type="char" MaxLength="5" />
+          <Property Name="OGRSINIF" Type="char" MaxLength="7" />
+          <Property Name="OGRDOGTAR" Type="char" MaxLength="10" />
+          <Property Name="OGRCINSIYET" Type="char" MaxLength="1" />
+          <Property Name="OGRVELIID" Type="int" />
+          <Property Name="OGRTC" Type="char" MaxLength="11" />
+          <Property Name="OGRIL" Type="varchar" MaxLength="13" />
+          <Property Name="OGRILCE" Type="varchar" MaxLength="20" />
+          <Property Name="OGRADRES" Type="varchar" MaxLength="100" />
+          <Property Name="OGRFOTO" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="OGRAYAR_TBL">
+          <Key>
+            <PropertyRef Name="AYARLARID" />
+          </Key>
+          <Property Name="AYARLARID" Type="int" Nullable="false" />
+          <Property Name="OGRSIFRE" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="OGRT_TBL">
+          <Key>
+            <PropertyRef Name="OGRTID" />
+          </Key>
+          <Property Name="OGRTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OGRTAD" Type="varchar" MaxLength="50" />
+          <Property Name="OGRTSOYAD" Type="varchar" MaxLength="50" />
+          <Property Name="OGRTTC" Type="char" MaxLength="11" />
+          <Property Name="OGRTTEL" Type="char" MaxLength="15" />
+          <Property Name="OGRTMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="OGRTIL" Type="varchar" MaxLength="13" />
+          <Property Name="OGRTILCE" Type="varchar" MaxLength="20" />
+          <Property Name="OGRTADRES" Type="varchar" MaxLength="100" />
+          <Property Name="OGRTBRANS" Type="varchar" MaxLength="50" />
+          <Property Name="OGRTFOTO" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="VELI_TBL">
+          <Key>
+            <PropertyRef Name="VELIID" />
+          </Key>
+          <Property Name="VELIID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VELIANNE" Type="varchar" MaxLength="30" />
+          <Property Name="VELIBABA" Type="varchar" MaxLength="30" />
+          <Property Name="VELITEL1" Type="char" MaxLength="15" />
+          <Property Name="VELITEL2" Type="char" MaxLength="15" />
+          <Property Name="VELIMAIL" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <Association Name="FK_AYAR_TBL_OGR_TBL">
+          <End Role="OGR_TBL" Type="Self.OGR_TBL" Multiplicity="1" />
+          <End Role="AYAR_TBL" Type="Self.AYAR_TBL" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="OGR_TBL">
+              <PropertyRef Name="OGRID" />
+            </Principal>
+            <Dependent Role="AYAR_TBL">
+              <PropertyRef Name="AYARLARID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OGR_TBL_VELI_TBL">
+          <End Role="VELI_TBL" Type="Self.VELI_TBL" Multiplicity="0..1" />
+          <End Role="OGR_TBL" Type="Self.OGR_TBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VELI_TBL">
+              <PropertyRef Name="VELIID" />
+            </Principal>
+            <Dependent Role="OGR_TBL">
+              <PropertyRef Name="OGRVELIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OGRAYAR_TBL_OGRT_TBL">
+          <End Role="OGRT_TBL" Type="Self.OGRT_TBL" Multiplicity="1" />
+          <End Role="OGRAYAR_TBL" Type="Self.OGRAYAR_TBL" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="OGRT_TBL">
+              <PropertyRef Name="OGRTID" />
+            </Principal>
+            <Dependent Role="OGRAYAR_TBL">
+              <PropertyRef Name="AYARLARID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AyarlarOgrenciler" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="AyarlarOgretmenler" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="dba_OkulOtomasyonuModelStoreContainer">
+          <EntitySet Name="AYAR_TBL" EntityType="Self.AYAR_TBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BRANS_TBL" EntityType="Self.BRANS_TBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IL_TBL" EntityType="Self.IL_TBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ILCE_TBL" EntityType="Self.ILCE_TBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OGR_TBL" EntityType="Self.OGR_TBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OGRAYAR_TBL" EntityType="Self.OGRAYAR_TBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OGRT_TBL" EntityType="Self.OGRT_TBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VELI_TBL" EntityType="Self.VELI_TBL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AYAR_TBL_OGR_TBL" Association="Self.FK_AYAR_TBL_OGR_TBL">
+            <End Role="OGR_TBL" EntitySet="OGR_TBL" />
+            <End Role="AYAR_TBL" EntitySet="AYAR_TBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OGR_TBL_VELI_TBL" Association="Self.FK_OGR_TBL_VELI_TBL">
+            <End Role="VELI_TBL" EntitySet="VELI_TBL" />
+            <End Role="OGR_TBL" EntitySet="OGR_TBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OGRAYAR_TBL_OGRT_TBL" Association="Self.FK_OGRAYAR_TBL_OGRT_TBL">
+            <End Role="OGRT_TBL" EntitySet="OGRT_TBL" />
+            <End Role="OGRAYAR_TBL" EntitySet="OGRAYAR_TBL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dba_OkulOtomasyonuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BRANS_TBL">
+          <Key>
+            <PropertyRef Name="BRANSID" />
+          </Key>
+          <Property Name="BRANSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BRANSAD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="IL_TBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sehir" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ILCE_TBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ilce" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sehir" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="OGR_TBL">
+          <Key>
+            <PropertyRef Name="OGRID" />
+          </Key>
+          <Property Name="OGRID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OGRAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="OGRSOYAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="OGRNO" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="OGRSINIF" Type="String" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="OGRDOGTAR" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="OGRCINSIYET" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OGRVELIID" Type="Int32" />
+          <Property Name="OGRTC" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="OGRIL" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="OGRILCE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OGRADRES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OGRFOTO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AYAR_TBL" Relationship="dba_OkulOtomasyonuModel.FK_AYAR_TBL_OGR_TBL" FromRole="OGR_TBL" ToRole="AYAR_TBL" />
+          <NavigationProperty Name="VELI_TBL" Relationship="dba_OkulOtomasyonuModel.FK_OGR_TBL_VELI_TBL" FromRole="OGR_TBL" ToRole="VELI_TBL" />
+        </EntityType>
+        <EntityType Name="OGRT_TBL">
+          <Key>
+            <PropertyRef Name="OGRTID" />
+          </Key>
+          <Property Name="OGRTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OGRTAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OGRTSOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OGRTTC" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="OGRTTEL" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="OGRTMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OGRTIL" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="OGRTILCE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OGRTADRES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OGRTBRANS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OGRTFOTO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OGRAYAR_TBL" Relationship="dba_OkulOtomasyonuModel.FK_OGRAYAR_TBL_OGRT_TBL" FromRole="OGRT_TBL" ToRole="OGRAYAR_TBL" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="VELI_TBL">
+          <Key>
+            <PropertyRef Name="VELIID" />
+          </Key>
+          <Property Name="VELIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VELIANNE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="VELIBABA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="VELITEL1" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="VELITEL2" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="VELIMAIL" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OGR_TBL" Relationship="dba_OkulOtomasyonuModel.FK_OGR_TBL_VELI_TBL" FromRole="VELI_TBL" ToRole="OGR_TBL" />
+        </EntityType>
+        <EntityContainer Name="dba_OkulOtomasyonuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BRANS_TBL" EntityType="Self.BRANS_TBL" />
+          <EntitySet Name="IL_TBL" EntityType="Self.IL_TBL" />
+          <EntitySet Name="ILCE_TBL" EntityType="Self.ILCE_TBL" />
+          <EntitySet Name="OGR_TBL" EntityType="Self.OGR_TBL" />
+          <EntitySet Name="OGRT_TBL" EntityType="Self.OGRT_TBL" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="VELI_TBL" EntityType="Self.VELI_TBL" />
+          <EntitySet Name="AYAR_TBL" EntityType="dba_OkulOtomasyonuModel.AYAR_TBL" />
+          <EntitySet Name="OGRAYAR_TBL" EntityType="dba_OkulOtomasyonuModel.OGRAYAR_TBL" />
+          <AssociationSet Name="FK_AYAR_TBL_OGR_TBL" Association="dba_OkulOtomasyonuModel.FK_AYAR_TBL_OGR_TBL">
+            <End Role="OGR_TBL" EntitySet="OGR_TBL" />
+            <End Role="AYAR_TBL" EntitySet="AYAR_TBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OGR_TBL_VELI_TBL" Association="dba_OkulOtomasyonuModel.FK_OGR_TBL_VELI_TBL">
+            <End Role="VELI_TBL" EntitySet="VELI_TBL" />
+            <End Role="OGR_TBL" EntitySet="OGR_TBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OGRAYAR_TBL_OGRT_TBL" Association="dba_OkulOtomasyonuModel.FK_OGRAYAR_TBL_OGRT_TBL">
+            <End Role="OGRT_TBL" EntitySet="OGRT_TBL" />
+            <End Role="OGRAYAR_TBL" EntitySet="OGRAYAR_TBL" />
+          </AssociationSet>
+          <FunctionImport Name="AyarlarOgrenciler" ReturnType="Collection(dba_OkulOtomasyonuModel.AyarlarOgrenciler_Result)" />
+          <FunctionImport Name="AyarlarOgretmenler" ReturnType="Collection(dba_OkulOtomasyonuModel.AyarlarOgretmenler_Result)" />
+        </EntityContainer>
+        <EntityType Name="AYAR_TBL">
+          <Key>
+            <PropertyRef Name="AYARLARID" />
+          </Key>
+          <Property Name="AYARLARID" Type="Int32" Nullable="false" />
+          <Property Name="OGRTSIFRE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OGR_TBL" Relationship="dba_OkulOtomasyonuModel.FK_AYAR_TBL_OGR_TBL" FromRole="AYAR_TBL" ToRole="OGR_TBL" />
+        </EntityType>
+        <EntityType Name="OGRAYAR_TBL">
+          <Key>
+            <PropertyRef Name="AYARLARID" />
+          </Key>
+          <Property Name="AYARLARID" Type="Int32" Nullable="false" />
+          <Property Name="OGRSIFRE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OGRT_TBL" Relationship="dba_OkulOtomasyonuModel.FK_OGRAYAR_TBL_OGRT_TBL" FromRole="OGRAYAR_TBL" ToRole="OGRT_TBL" />
+        </EntityType>
+        <Association Name="FK_AYAR_TBL_OGR_TBL">
+          <End Type="dba_OkulOtomasyonuModel.OGR_TBL" Role="OGR_TBL" Multiplicity="1" />
+          <End Type="dba_OkulOtomasyonuModel.AYAR_TBL" Role="AYAR_TBL" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="OGR_TBL">
+              <PropertyRef Name="OGRID" />
+            </Principal>
+            <Dependent Role="AYAR_TBL">
+              <PropertyRef Name="AYARLARID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OGR_TBL_VELI_TBL">
+          <End Type="dba_OkulOtomasyonuModel.VELI_TBL" Role="VELI_TBL" Multiplicity="0..1" />
+          <End Type="dba_OkulOtomasyonuModel.OGR_TBL" Role="OGR_TBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VELI_TBL">
+              <PropertyRef Name="VELIID" />
+            </Principal>
+            <Dependent Role="OGR_TBL">
+              <PropertyRef Name="OGRVELIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OGRAYAR_TBL_OGRT_TBL">
+          <End Type="dba_OkulOtomasyonuModel.OGRT_TBL" Role="OGRT_TBL" Multiplicity="1" />
+          <End Type="dba_OkulOtomasyonuModel.OGRAYAR_TBL" Role="OGRAYAR_TBL" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="OGRT_TBL">
+              <PropertyRef Name="OGRTID" />
+            </Principal>
+            <Dependent Role="OGRAYAR_TBL">
+              <PropertyRef Name="AYARLARID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="AyarlarOgrenciler_Result">
+          <Property Type="Int32" Name="AYARLARID" Nullable="false" />
+          <Property Type="String" Name="OGRADSOYAD" Nullable="true" MaxLength="61" />
+          <Property Type="String" Name="OGRSINIF" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="OGRTC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="OGRSIFRE" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="OGRFOTO" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="AyarlarOgretmenler_Result">
+          <Property Type="Int32" Name="AYARLARID" Nullable="false" />
+          <Property Type="String" Name="OGRTADSOYAD" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="OGRTBRANS" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OGRTTC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="OGRTSIFRE" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="OGRTFOTO" Nullable="true" MaxLength="500" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dba_OkulOtomasyonuModelStoreContainer" CdmEntityContainer="dba_OkulOtomasyonuEntities">
+          <EntitySetMapping Name="BRANS_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.BRANS_TBL">
+              <MappingFragment StoreEntitySet="BRANS_TBL">
+                <ScalarProperty Name="BRANSID" ColumnName="BRANSID" />
+                <ScalarProperty Name="BRANSAD" ColumnName="BRANSAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IL_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.IL_TBL">
+              <MappingFragment StoreEntitySet="IL_TBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sehir" ColumnName="sehir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ILCE_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.ILCE_TBL">
+              <MappingFragment StoreEntitySet="ILCE_TBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ilce" ColumnName="ilce" />
+                <ScalarProperty Name="sehir" ColumnName="sehir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OGR_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.OGR_TBL">
+              <MappingFragment StoreEntitySet="OGR_TBL">
+                <ScalarProperty Name="OGRID" ColumnName="OGRID" />
+                <ScalarProperty Name="OGRAD" ColumnName="OGRAD" />
+                <ScalarProperty Name="OGRSOYAD" ColumnName="OGRSOYAD" />
+                <ScalarProperty Name="OGRNO" ColumnName="OGRNO" />
+                <ScalarProperty Name="OGRSINIF" ColumnName="OGRSINIF" />
+                <ScalarProperty Name="OGRDOGTAR" ColumnName="OGRDOGTAR" />
+                <ScalarProperty Name="OGRCINSIYET" ColumnName="OGRCINSIYET" />
+                <ScalarProperty Name="OGRVELIID" ColumnName="OGRVELIID" />
+                <ScalarProperty Name="OGRTC" ColumnName="OGRTC" />
+                <ScalarProperty Name="OGRIL" ColumnName="OGRIL" />
+                <ScalarProperty Name="OGRILCE" ColumnName="OGRILCE" />
+                <ScalarProperty Name="OGRADRES" ColumnName="OGRADRES" />
+                <ScalarProperty Name="OGRFOTO" ColumnName="OGRFOTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OGRT_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.OGRT_TBL">
+              <MappingFragment StoreEntitySet="OGRT_TBL">
+                <ScalarProperty Name="OGRTID" ColumnName="OGRTID" />
+                <ScalarProperty Name="OGRTAD" ColumnName="OGRTAD" />
+                <ScalarProperty Name="OGRTSOYAD" ColumnName="OGRTSOYAD" />
+                <ScalarProperty Name="OGRTTC" ColumnName="OGRTTC" />
+                <ScalarProperty Name="OGRTTEL" ColumnName="OGRTTEL" />
+                <ScalarProperty Name="OGRTMAIL" ColumnName="OGRTMAIL" />
+                <ScalarProperty Name="OGRTIL" ColumnName="OGRTIL" />
+                <ScalarProperty Name="OGRTILCE" ColumnName="OGRTILCE" />
+                <ScalarProperty Name="OGRTADRES" ColumnName="OGRTADRES" />
+                <ScalarProperty Name="OGRTBRANS" ColumnName="OGRTBRANS" />
+                <ScalarProperty Name="OGRTFOTO" ColumnName="OGRTFOTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VELI_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.VELI_TBL">
+              <MappingFragment StoreEntitySet="VELI_TBL">
+                <ScalarProperty Name="VELIID" ColumnName="VELIID" />
+                <ScalarProperty Name="VELIANNE" ColumnName="VELIANNE" />
+                <ScalarProperty Name="VELIBABA" ColumnName="VELIBABA" />
+                <ScalarProperty Name="VELITEL1" ColumnName="VELITEL1" />
+                <ScalarProperty Name="VELITEL2" ColumnName="VELITEL2" />
+                <ScalarProperty Name="VELIMAIL" ColumnName="VELIMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AYAR_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.AYAR_TBL">
+              <MappingFragment StoreEntitySet="AYAR_TBL">
+                <ScalarProperty Name="OGRTSIFRE" ColumnName="OGRTSIFRE" />
+                <ScalarProperty Name="AYARLARID" ColumnName="AYARLARID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OGRAYAR_TBL">
+            <EntityTypeMapping TypeName="dba_OkulOtomasyonuModel.OGRAYAR_TBL">
+              <MappingFragment StoreEntitySet="OGRAYAR_TBL">
+                <ScalarProperty Name="OGRSIFRE" ColumnName="OGRSIFRE" />
+                <ScalarProperty Name="AYARLARID" ColumnName="AYARLARID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AyarlarOgrenciler" FunctionName="dba_OkulOtomasyonuModel.Store.AyarlarOgrenciler">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dba_OkulOtomasyonuModel.AyarlarOgrenciler_Result">
+                <ScalarProperty Name="AYARLARID" ColumnName="AYARLARID" />
+                <ScalarProperty Name="OGRADSOYAD" ColumnName="OGRADSOYAD" />
+                <ScalarProperty Name="OGRSINIF" ColumnName="OGRSINIF" />
+                <ScalarProperty Name="OGRTC" ColumnName="OGRTC" />
+                <ScalarProperty Name="OGRSIFRE" ColumnName="OGRSIFRE" />
+                <ScalarProperty Name="OGRFOTO" ColumnName="OGRFOTO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AyarlarOgretmenler" FunctionName="dba_OkulOtomasyonuModel.Store.AyarlarOgretmenler">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dba_OkulOtomasyonuModel.AyarlarOgretmenler_Result">
+                <ScalarProperty Name="AYARLARID" ColumnName="AYARLARID" />
+                <ScalarProperty Name="OGRTADSOYAD" ColumnName="OGRTADSOYAD" />
+                <ScalarProperty Name="OGRTBRANS" ColumnName="OGRTBRANS" />
+                <ScalarProperty Name="OGRTTC" ColumnName="OGRTTC" />
+                <ScalarProperty Name="OGRTSIFRE" ColumnName="OGRTSIFRE" />
+                <ScalarProperty Name="OGRTFOTO" ColumnName="OGRTFOTO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
